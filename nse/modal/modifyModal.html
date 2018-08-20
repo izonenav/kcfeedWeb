@@ -1,0 +1,43 @@
+		<!--  수정 Modal -->
+		<form name="submitFormModify" method="post" action="post/itemPost.php">
+		<input type="hidden" name="mode" id="mode12" value="" />
+		<input type="hidden" name="seq" id="seq12" value="" />
+			<div class="modal fade" id="myModal1" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  <div class="modal-dialog" role="document">
+				<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				  
+				<div class="modal-body">
+					<label >지역</label>
+					<input name="ModifyRegion_cd" id="ModifyRegion_cd" type="text" class="form-control" placeholder="숫자만 입력" readonly />
+
+					<label >항목명</label>
+					<input name="ModifyItem_cd" id="ModifyItem_cd" type="text" class="form-control" placeholder="숫자만 입력" readonly />
+
+					<label >가격</label>
+					<input name="ModifyItem_price" id="ModifyItem_price" type="text" class="form-control" placeholder="숫자만 입력" />
+
+					<label>게시일자</label>
+					<div class="input-group">
+						<div class="input-group-addon">
+						<i class="fa fa-calendar">
+						</i>
+						</div>
+						<input class="form-control" id="modifydDate" name="modifydDate" placeholder="YYYY/MM/DD" type="text" />
+					</div>
+
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" onclick="save1();">Save changes</button>
+				  </div>
+				  
+				  
+				</div>
+				</div>
+			  </div>
+			</div>
+		</form>

@@ -1,0 +1,57 @@
+		<!--  추가 Modal -->
+		<form name="submitForm" method="post" action="post/itemPost.php">
+		<input type="hidden" name="mode" id="mode" value="" />
+		<input type="hidden" name="seq" id="seq" value="" />
+			<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+			  <div class="modal-dialog" role="document">
+				<div class="modal-content">
+				
+				<div class="modal-header">
+					<button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+					<h4 class="modal-title" id="myModalLabel"></h4>
+				</div>
+				  
+				<div class="modal-body">
+	  
+					<label for="region_cd">지역 및 항목명</label>
+					<div class="form-inline">
+					<div class="form-group" style="width:100%">
+						<select id="region_cd" name="region_cd"  class="form-control" style="width:49%" >
+						  <option value = "" selected>전체</option>
+						  <option value="10">서울(음성평균)</option>
+						  <option value="20">부산(김해평균)</option>
+						  <option value="30">대구</option>
+						  <option value="31">부경(부경평균)</option>
+						</select>
+						<select id="item_cd" name="item_cd" class="form-control" style="width:50%" onchange="fetchAjax(this.value);">
+						  <option value = "" selected>전체</option>
+						  <option value="1000">계란</option>
+						  <option value="2000">육계</option>
+						  <option value="3000">양돈</option>
+						  <option value="4000">한우</option>
+						</select>
+					</div>
+					</div>
+					
+					<div id="fetch">
+					</div>
+					<label>게시일자</label>
+					<div class="input-group">
+						<div class="input-group-addon">
+						<i class="fa fa-calendar">
+						</i>
+						</div>
+						<input class="form-control" id="dDate" name="dDate" placeholder="YYYY/MM/DD" type="text" />
+					</div>
+
+				  <div class="modal-footer">
+					<button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+					<button type="button" class="btn btn-primary" onclick="save();">Save changes</button>
+				  </div>
+				  
+				  
+				</div>
+				</div>
+			  </div>
+			</div>
+		</form>

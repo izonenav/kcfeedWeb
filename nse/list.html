@@ -1,0 +1,243 @@
+<?
+include "../admin/inc/config.php"; 
+include "../admin/inc/mysql.inc.php"; 
+include "../admin/inc/paging.inc.php"; 
+include "../admin/inc/lib.inc.php"; 
+include "inc/lists.inc.php"; 
+
+$db = new Mysql();
+$lists = new Lists($db);
+
+$region_cd = $_GET["region_cd"];
+$item_cd = $_GET["item_cd"];
+
+if(empty($region_cd) == false)
+{
+	$lists->where = " AND p.region_cd = '". $region_cd. "' ";
+}
+
+if(empty($item_cd) == false)
+{
+	$lists->where .= " AND item_cd = '". $item_cd. "' ";
+}
+
+
+$listsInfo = $lists->getLists();
+?>
+<!DOCTYPE html>
+<html>
+<head>
+	<!-- Bootstrap core CSS -->
+	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/css/bootstrap.min.css" integrity="sha384-rwoIResjU2yc3z8GV/NPeZWAv56rSmLldC3R/AZzGRnGxQQKnKkoFVhFQhNUwEyJ" crossorigin="anonymous">
+	<script src="https://code.jquery.com/jquery-3.1.1.slim.min.js" integrity="sha384-A7FZj7v+d/sdmMqp/nOQwliLvUsJfDHW+k9Omg/a/EheAdgtzNs3hpfag6Ed950n" crossorigin="anonymous"></script>
+	<script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js" integrity="sha384-DztdAPBWPRXSA/3eYEEUWrWCy7G5KFbe8fFjk5JAIxUYHKkDx6Qin1DkWx51bBrb" crossorigin="anonymous"></script>
+	<script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-alpha.6/js/bootstrap.min.js" integrity="sha384-vBWWzlZJ8ea9aCX4pEW3rVHjgjt7zpkNpZk+02D9phzyeVkE+jo0ieGizqPLForn" crossorigin="anonymous"></script>
+		 <!-- Include Date Range Picker -->
+	<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/js/bootstrap-datepicker.min.js"></script>
+	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/bootstrap-datepicker/1.4.1/css/bootstrap-datepicker3.css"/>
+  
+	<!--Font Awesome (added because you use icons in your prepend/append)-->
+	<!-- <link rel="stylesheet" href="https://formden.com/static/cdn/font-awesome/4.4.0/css/font-awesome.min.css" /> -->
+	<link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.13/css/all.css" integrity="sha384-DNOHZ68U8hZfKXOrtjWvjxusGo9WQnrNx2sqG0tfsghAvtVlRW3tvkXWZh58N9jp" crossorigin="anonymous">
+	<!-- fetch api -->
+	<script src="include/fetch-master/fetch.js"></script>
+	<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/fetch/2.0.4/fetch.js"></script> -->
+	<script src="https://cdn.jsdelivr.net/npm/promise-polyfill@7/dist/polyfill.min.js"></script>
+	
+	<!-- Inline CSS based on choices in "Settings" tab -->
+	<style>.bootstrap-iso .formden_header h2, .bootstrap-iso .formden_header p, .bootstrap-iso form{font-family: Arial, Helvetica, sans-serif; color: black}.bootstrap-iso form button, .bootstrap-iso form button:hover{color: white !important;} .asteriskField{color: red;}
+	</style>
+	
+	<style>
+.one
+{
+	position:absolute;
+    top:0;
+    right:0;
+    width:30px;
+    height:30px;
+}
+	</style>
+
+</head>
+
+<body>
+
+<div class="container">
+  <div class="row">
+	<div class="card">
+	<div class="card-header">
+		<div class="col-md-12">
+		  <label class="mr-sm-2" for="inlineFormCustomSelect">지역 / 시장</label>
+		  <select class="custom-select mr-sm-2" id="searchRegion_cd" onchange="search()">
+			<option  value=0>전체</option>
+			<?=$lists->getRegion_cdSelectBoxOptions($region_cd);?>
+		  </select>
+		  
+		  <label class="mr-sm-2" for="inlineFormCustomSelect">항목선택</label>
+		  <select class="custom-select mr-sm-2" id="searchItem_cd" onchange="search()">
+			<option  value=0>전체</option>
+			<?=$lists->getItem_cdSelectBoxOptions($item_cd);?>
+		  </select>
+		  
+		  <button type="submit" class="btn btn-primary" onclick="add();" >시세생성</button>
+		  <script>
+		   function add(){
+			  $("#mode").val("add");
+			  $("#myModal").modal();
+
+			}
+		  </script>
+		</div>
+    </div>
+    </div>
+  </div>
+	
+	
+<div class="row">
+	<div class="card">
+	<div class="card-body">
+	
+		<div class="col-md-12">
+			<table class="table table-striped table-hover table-responsive">
+			  <thead>
+				<tr>
+				  <th scope="col">#</th>
+				  <th scope="col">지역</th>
+				  <th scope="col">항목명</th>
+				  <th scope="col">가격</th>
+				  <th scope="col">등록날짜</th>
+				  <th scope="col">Handle</th>
+				</tr>
+			  </thead>
+			  <tbody>
+				<?=$listsInfo?>
+			  </tbody>
+			</table>
+		</div>
+	</div>
+</div>
+</div>
+</div>
+
+<?= include 'modal/addModal.html';?>
+<?= include 'modal/modifyModal.html';?>
+				
+<script>
+jQuery(document).ready(function( $ ) {
+	var date_input=$('input[name="dDate"] , input[name="modifydDate"]'); //our date input has the name "dDate"
+	var container=$('.bootstrap-iso form').length>0 ? $('.bootstrap-iso form').parent() : "body";
+	date_input.datepicker({
+		format: 'yyyy-mm-dd',
+		container: container,
+		todayHighlight: true,
+		autoclose: true,
+	})
+});
+
+function fetchAjax(param)
+{							
+	fetch('ajax/egg.html?item='+param).then(function(response){
+		return response.text();
+	}).then(function(j){
+			console.log(j);		
+			document.getElementById('fetch').innerHTML = j;				
+		});
+}
+
+function removeElement(parentElement)
+{
+	<!-- console.log(parentElement.parentNode); -->
+	parentElement.parentNode.removeChild(parentElement);
+	<!-- parentElement.remove(); -->
+}
+
+function save() 
+{
+	if($("#region_cd").val().length < 1) 
+	{
+		alert("지역을 입력해주세요");
+		return;
+	};
+
+	if($("#dDate").val().length < 1) 
+	{
+		alert("일자를 입력해주세요");
+		return;
+	};
+	
+	if($("#item_cd").val().length < 1) 
+	{
+		alert("품목을 입력해주세요");
+		return;
+	};
+	
+	submitForm.submit();
+}
+
+function save1() 
+{
+
+	if($("#modifydDate").val().length < 0) 
+	{
+		alert("일자를 입력해주세요");
+		return;
+	};
+	
+	if($("#ModifyItem_price").val().length < 0) 
+	{
+		alert("일자를 입력해주세요");
+		return;
+	};
+	
+	submitForm1.submit();
+}
+
+function listPaging(pageNum)
+{
+	search(pageNum);
+}
+
+function search(pageNum)
+{
+	if(typeof pageNum === "undefined")
+	{
+		pageNum = 1;
+	}
+	
+	
+	var region_cd = $("#searchRegion_cd").val();
+	var item_cd = $("#searchItem_cd").val();
+	
+	window.location.href = "list.html?region_cd=" + region_cd + "&item_cd=" + item_cd;
+}
+
+function remove(seq) 
+{
+	if(confirm("정말 삭제 하시겠습니까?")) 
+	{
+		$("#seq").val(seq);
+		$("#mode").val("remove");
+		submitForm.submit();
+	} else 
+	{
+		location.reload();
+	}
+}
+
+function modify(obj) 
+{
+	$("#seq1").val(obj.seq);
+	$("#mode1").val("modify");
+	$("#ModifyRegion_cd").val(obj.cd_meyng);
+	$("#ModifyItem_cd").val(obj.item_cd);
+	$("#ModifyItem_price").val(obj.item_price);
+	$("#modifydDate").val(obj.dDate);
+	$("#myModal1").modal();
+}
+
+
+</script>
+        
+  </body>
+</html>

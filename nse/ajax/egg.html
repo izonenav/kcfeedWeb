@@ -1,0 +1,112 @@
+<?
+include "../../admin/inc/config.php"; 
+include "../../admin/inc/mysql.inc.php"; 
+include "../../admin/inc/paging.inc.php"; 
+include "../../admin/inc/lib.inc.php"; 
+include "../../admin/inc/software.inc.php"; 
+
+$item = $_GET["item"];
+
+if($item == "1000")
+{
+	echo '
+	<div  style="position: relative;">
+	<label>왕란</label>
+	<input name="egg[1010]" type="text"   class="form-control"  placeholder="숫자만 입력" />
+	<div class="one" onclick="removeElement(this.parentElement);"><i class="far fa-times-circle"></i></div>
+	</div>
+	
+	<div  style="position: relative;">	
+	<label>특란</label>
+	<input name="egg[1020]" type="text"   class="form-control"  placeholder="숫자만 입력" />
+	<div class="one" onclick="removeElement(this.parentElement);"><i class="far fa-times-circle"></i></div>
+	</div>
+	
+	<div  style="position: relative;">
+	<label >대란</label>
+	<input name="egg[1030]" type="text"   class="form-control"  placeholder="숫자만 입력" />
+	<div class="one" onclick="removeElement(this.parentElement);"><i class="far fa-times-circle"></i></div>
+	</div>
+	
+	<div  style="position: relative;">
+	<label >중란</label>
+	<input name="egg[1040]" type="text"   class="form-control"   placeholder="숫자만 입력" />
+	<div class="one" onclick="removeElement(this.parentElement);"><i class="far fa-times-circle"></i></div>
+	</div>
+	
+	<div  style="position: relative;">
+	<label >소란</label>
+	<input name="egg[1050]" type="text"   class="form-control"   placeholder="숫자만 입력" />
+	<div class="one" onclick="removeElement(this.parentElement);"><i class="far fa-times-circle"></i></div>
+	</div>
+	';
+}
+else if($item == "2000")
+{
+	echo '
+	<div  style="position: relative;">
+	<label >대</label>
+	<input name="chi[2010]" type="text"   class="form-control"    placeholder="숫자만 입력" />
+	<div class="one" onclick="removeElement(this.parentElement);"><i class="far fa-times-circle"></i></div>
+	</div>
+
+	<div  style="position: relative;">
+	<label >중</label>
+	<input name="chi[2020]" type="text"   class="form-control"  placeholder="숫자만 입력" />
+	<div class="one" onclick="removeElement(this.parentElement);"><i class="far fa-times-circle"></i></div>
+	</div>
+
+	<div  style="position: relative;">	
+	<label >소</label>
+	<input name="chi[2030]" type="text"   class="form-control"   placeholder="숫자만 입력" />
+	<div class="one" onclick="removeElement(this.parentElement);"><i class="far fa-times-circle"></i></div>
+	</div>
+	';
+}
+else if($item == "3000")
+{
+	echo '
+	
+	<div  style="position: relative;">	
+	<label >박피</label>
+	<input name="pig[3010]" type="text"   class="form-control"   placeholder="숫자만 입력" />
+	<div class="one" onclick="removeElement(this.parentElement);"><i class="far fa-times-circle"></i></div>
+	</div>
+	
+	<div  style="position: relative;">	
+	<label >모돈</label>
+	<input name="pig[3020]" type="text"   class="form-control"  placeholder="숫자만 입력" />
+	<div class="one" onclick="removeElement(this.parentElement);"><i class="far fa-times-circle"></i></div>
+	</div>
+	
+	<div  style="position: relative;">	
+	<label >탕박</label>
+	<input name="pig[3030]" type="text"   class="form-control"   placeholder="숫자만 입력" />
+	<div class="one" onclick="removeElement(this.parentElement);"><i class="far fa-times-circle"></i></div>
+	</div>
+	';
+}
+else if($item == "4000")
+{
+	echo '
+	<div  style="position: relative;">	
+	<label >거세우</label>
+	<input name="cow[4010]" type="text"   class="form-control"  placeholder="숫자만 입력" />
+	<div class="one" onclick="removeElement(this.parentElement);"><i class="far fa-times-circle"></i></div>
+	</div>
+	
+	<div  style="position: relative;">	
+	<label >육우</label>
+	<input name="cow[4020]" type="text"   class="form-control"  placeholder="숫자만 입력" />
+	<div class="one" onclick="removeElement(this.parentElement);"> <i class="far fa-times-circle"></i></div>
+	</div>
+	
+	<div  style="position: relative;">	
+	<label >유우</label>
+	<input name="cow[4030]" type="text"   class="form-control"    placeholder="숫자만 입력" />
+	<div class="one" onclick="removeElement(this.parentElement);"><i class="far fa-times-circle"></i></div>
+	</div>
+	';
+}
+?>
+

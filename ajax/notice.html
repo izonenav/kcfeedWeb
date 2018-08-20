@@ -1,0 +1,46 @@
+<?
+require_once "../inc/config.php"; 
+require_once "../inc/lib.inc.php"; 
+require_once "../inc/mysql.inc.php"; 
+require_once "../inc/notice.inc.php"; 
+
+
+$direction = $_GET["direction"];
+$noticeStartRow = $_GET["noticeStartRow"];
+$gubun = URLDecode($_GET["gubun"]);
+
+
+$db = new Mysql();
+$notice = new Notice($db);
+
+if($direction == "next")
+{
+	$noticeStartRow += 6;
+}
+else if($direction == "pre")
+{ 
+	if($noticeStartRow <> 0)
+	{
+		$noticeStartRow -= 6;
+	}
+}
+else if($direction == "default")
+{
+	$noticeStartRow = 0;
+}
+else
+{
+
+}
+$notice->noticeStartRow = $noticeStartRow;
+$notice->gubun = $gubun;
+
+
+$tableData = $notice->getNotice();
+
+$DATA = array($noticeStartRow , $tableData);
+echo json_encode($DATA);
+
+
+
+?>
